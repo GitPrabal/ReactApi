@@ -1,16 +1,15 @@
-<?php 
+<?php
 
+    $servername = "localhost";
+	$username = "root";
+	$password = "";
+	$dbname = "Admin";
 
-//Define your host here.
-$HostName = "localhost";
- 
-//Define your database name here.
-$DatabaseName = "Admin";
- 
-//Define your database username here.
-$HostUser = "root";
- 
-//Define your database password here.
-$HostPass = "";
-
+	// Create connection
+	$con = new mysqli($servername, $username, $password, $dbname);
+	// Check connection
+	if ($con->connect_error) {
+		die("Connection failed: " . $con->connect_error);
+    }
+    
 ?>

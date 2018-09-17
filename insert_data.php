@@ -1,45 +1,25 @@
 <?php
 
-	$servername = "localhost";
-	$username = "root";
-	$password = "";
-	$dbname = "Admin";
+	include 'config.php';
+	$json = json_decode(file_get_contents("php://input"));
 
-	// Create connection
-	$conn = new mysqli($servername, $username, $password, $dbname);
-	// Check connection
-	if ($conn->connect_error) {
-		die("Connection failed: " . $conn->connect_error);
-	}
-
-	$json = file_get_contents('php://input');
-
-	$obj = json_decode($json,true);
-
-
-	$full_name = $obj['name'];
-	$email = $obj['email'];
-	$password = $obj['password'];
+    $full_name = $json->fullname;
+    $email = $json->email;
+	$password = $json->pass;
 	
- 	$sql = "INSERT INTO `registration`(`id`, `email`, `password`, `reg_date`) VALUES ('$full_name','$email','$password')";
+	if(!$full_name && !$email || !$password)
+
+	$Sql_Query =  "INSERT INTO `registration`(`fullname`, `email`, `password`) VALUES ('$full_name','$email','$password')";
  
 	 if(mysqli_query($con,$Sql_Query)){
-	 
-			 // If the record inserted successfully then show the message as response. 
-			$MSG = 'Product Successfully Inserted into MySQL Database' ;
-			 
-			// Converting the message into JSON format.
-			$json = json_encode($MSG);
-			 
-			// Echo the message on screen.
-			// We would also show this message on our app.
-			 echo $json ;
-	 
+		$result =array("msg"=>"Account Created Succesfully","status"=>"200");
+		$json = json_encode($result);
+		echo $json ;
 	 }
 	 else{
-	 
-			echo 'Something Went Wrong';
-	 
+		 $result =array("msg"=>"Someting wents wrong","status"=>"400");
+		 $json = json_encode($result);
+		 echo $json ;
 	 }
 	mysqli_close($con);
 	
