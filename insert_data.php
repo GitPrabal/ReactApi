@@ -7,7 +7,18 @@
     $email = $json->email;
 	$password = $json->pass;
 	
-	if(!$full_name && !$email || !$password)
+	if( !empty($full_name) && !empty($email) && !empty($password) &&  $full_name!=='' && $email!=='' && $password!==''){
+
+		/* Check Wheather  */
+
+	$count  = checkUserAvailable($con,$email);	
+
+	if($count > 0){
+		$result =array("msg"=>"Email id already in use","status"=>"300");
+		$json = json_encode($result);
+		echo $json ;
+		return;
+	}
 
 	$Sql_Query =  "INSERT INTO `registration`(`fullname`, `email`, `password`) VALUES ('$full_name','$email','$password')";
  
@@ -22,5 +33,20 @@
 		 echo $json ;
 	 }
 	mysqli_close($con);
-	
+}else{
+	     $result =array("msg"=>"Parameter mismatched","status"=>"400");
+		 $json = json_encode($result);
+		 echo $json ;
+}
+
+function checkUserAvailable($con,$email){
+
+	$userExist_Query =  "Select count(*) as count from `registration` where email='$email'";
+	$result = mysqli_query($con,$userExist_Query);
+	$result = mysqli_fetch_assoc($result);
+	$count  = $result['count'];
+	return $count;
+
+}
+
 ?>
