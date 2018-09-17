@@ -6,16 +6,17 @@ $email    = $_GET['email'];
 $password = $_GET['password'];
 
 
-$sql    = "SELECT count(*) as count FROM registration where email='$email' and password='$password' "; 
+$sql    = "SELECT *,count(*) as count FROM registration where email='$email' and password='$password' "; 
 $result = mysqli_query($con,$sql);
 
 $result = mysqli_fetch_assoc($result);
 
 $count  = $result['count'];
-
+$email  = $result['email'];
+$fullname  = $result['fullname'];
 
 if($count > 0){
-	$result =array("msg"=>"Logged In Successfully","status"=>"200","flag"=>true);
+	$result =array("name"=>$fullname,"email"=>$email, "msg"=>"Logged In Successfully","status"=>"200","flag"=>true);
 	$json = json_encode($result);
 	echo $json ;
 }else{

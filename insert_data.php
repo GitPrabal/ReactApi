@@ -1,5 +1,10 @@
 <?php
 
+$time    = microtime(); 
+$time2   = time();  
+$result  =  ceil(str_replace('.','',$time));
+$user_id = $result + $time2;
+
 	include 'config.php';
 	$json = json_decode(file_get_contents("php://input"));
 
@@ -20,7 +25,7 @@
 		return;
 	}
 
-	$Sql_Query =  "INSERT INTO `registration`(`fullname`, `email`, `password`) VALUES ('$full_name','$email','$password')";
+	$Sql_Query =  "INSERT INTO `registration`(`user_id`,`fullname`, `email`, `password`) VALUES ('$user_id','$full_name','$email','$password')";
  
 	 if(mysqli_query($con,$Sql_Query)){
 		$result =array("msg"=>"Account Created Succesfully","status"=>"200");
