@@ -14,9 +14,10 @@ $result = mysqli_fetch_assoc($result);
 $count  = $result['count'];
 $email  = $result['email'];
 $fullname  = $result['fullname'];
+$user_id   = $result['user_id'];
 
 if($count > 0){
-	$result =array("name"=>$fullname,"email"=>$email, "msg"=>"Logged In Successfully","status"=>"200","flag"=>true);
+	$result =array("user_id"=>$user_id,"email"=>$email, "msg"=>"Logged In Successfully","status"=>"200","flag"=>true);
 	$json = json_encode($result);
 	echo $json ;
 }else{
