@@ -1,14 +1,20 @@
 <?php
 
+<<<<<<< HEAD
 header('Access-Control-Allow-Origin: *'); 
 
+=======
+>>>>>>> 182756ec623ea42ea54996e1488fde9b4b92ca06
 $time    = microtime(); 
 $time2   = time();  
 $result  =  ceil(str_replace('.','',$time));
 $user_id = $result + $time2;
 
 	include 'config.php';
+<<<<<<< HEAD
 
+=======
+>>>>>>> 182756ec623ea42ea54996e1488fde9b4b92ca06
 	$json = json_decode(file_get_contents("php://input"));
 
     $full_name = $json->fullname;
@@ -29,6 +35,7 @@ $user_id = $result + $time2;
 	}
 
 	$Sql_Query =  "INSERT INTO `registration`(`user_id`,`fullname`, `email`, `password`) VALUES ('$user_id','$full_name','$email','$password')";
+<<<<<<< HEAD
 
 
 	$Sql_Query1 = "INSERT INTO `user_details`(`user_id`,`full_name`,`email`,`address`,`phone_no`,`profile_pic`) VALUES 
@@ -37,6 +44,10 @@ $user_id = $result + $time2;
 
  
 	 if(  mysqli_query($con,$Sql_Query) &&  mysqli_query($con,$Sql_Query1) ){
+=======
+ 
+	 if(mysqli_query($con,$Sql_Query)){
+>>>>>>> 182756ec623ea42ea54996e1488fde9b4b92ca06
 		$result =array("msg"=>"Account Created Succesfully","status"=>"200");
 		$json = json_encode($result);
 		echo $json ;
