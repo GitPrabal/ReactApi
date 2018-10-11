@@ -4,6 +4,8 @@ header('Access-Control-Allow-Origin: *');
 
 include 'config.php';
 
+
+
 $email    = $_GET['email'];
 $password = $_GET['password'];
 
@@ -22,7 +24,7 @@ $fullname  = $result['fullname'];
 $user_id   = $result['user_id'];
 
 if($count > 0){
-	$result =array("user_id"=>$user_id,"email"=>$email, "msg"=>"Logged In Successfully","status"=>"200","flag"=>true);
+	$result =array("user_id"=>$user_id,"email"=>$email, "msg"=>"Logged In Successfully","status"=>"200","flag"=>true,'fullname'=>$fullname);
 	$json = json_encode($result);
 	echo $json ;
 }else{
