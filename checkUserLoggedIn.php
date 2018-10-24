@@ -4,7 +4,6 @@ header('Access-Control-Allow-Origin: *');
 
 include 'config.php';
 
-
 $email    = base64_decode($_GET['e']);
 $password = base64_decode($_GET['p']);
 
@@ -35,8 +34,6 @@ if($count > 0){
 	$json = json_encode($result);
 	echo $json ;
 }
-
-
 mysqli_close($con);
 	
 ?>

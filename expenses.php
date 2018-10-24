@@ -1,6 +1,8 @@
 <?php
 
 header('Access-Control-Allow-Origin: *'); 
+
+
 include 'config.php';
 
 $user_id    = base64_decode($_GET['user_id']); 
