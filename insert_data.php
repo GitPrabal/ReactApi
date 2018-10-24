@@ -1,29 +1,23 @@
 <?php
 
-<<<<<<< HEAD
 header('Access-Control-Allow-Origin: *'); 
 
-=======
->>>>>>> 182756ec623ea42ea54996e1488fde9b4b92ca06
 $time    = microtime(); 
 $time2   = time();  
 $result  =  ceil(str_replace('.','',$time));
 $user_id = $result + $time2;
 
-	include 'config.php';
-<<<<<<< HEAD
+include 'config.php';
 
-=======
->>>>>>> 182756ec623ea42ea54996e1488fde9b4b92ca06
 	$json = json_decode(file_get_contents("php://input"));
+
 
     $full_name = $json->fullname;
     $email = $json->email;
 	$password = $json->pass;
 	
-	if( !empty($full_name) && !empty($email) && !empty($password) &&  $full_name!=='' && $email!=='' && $password!==''){
-
-		/* Check Wheather  */
+	if( !empty($full_name) && !empty($email) && !empty($password) &&  $full_name!=='' && $email!=='' && $password!=='')
+	{
 
 	$count  = checkUserAvailable($con,$email);	
 
@@ -34,31 +28,41 @@ $user_id = $result + $time2;
 		return;
 	}
 
-	$Sql_Query =  "INSERT INTO `registration`(`user_id`,`fullname`, `email`, `password`) VALUES ('$user_id','$full_name','$email','$password')";
-<<<<<<< HEAD
+	$salt_string  =  md5($email);
+	$salt_string1 =  md5($password);
+	$salt_string  = $salt_string."$".$salt_string1;
 
 
-	$Sql_Query1 = "INSERT INTO `user_details`(`user_id`,`full_name`,`email`,`address`,`phone_no`,`profile_pic`) VALUES 
-	('".$user_id."','".$full_name."','".$email."','','','')";
+	$Sql_Query =  "INSERT INTO `registration`(`user_id`,`fullname`, `email`, `password`,`salt_string`) 
+	VALUES ('$user_id','$full_name','$email','$password','$salt_string')";
 
+	$Sql_Query1 = "INSERT INTO `user_details`(`user_id`,`address`,`phone_no`,`profile_pic`) VALUES 
+	('".$user_id."','','','')";
 
  
-	 if(  mysqli_query($con,$Sql_Query) &&  mysqli_query($con,$Sql_Query1) ){
-=======
- 
-	 if(mysqli_query($con,$Sql_Query)){
->>>>>>> 182756ec623ea42ea54996e1488fde9b4b92ca06
+	 if(mysqli_query($con,$Sql_Query) &&  mysqli_query($con,$Sql_Query1) )
+	 {
 		$result =array("msg"=>"Account Created Succesfully","status"=>"200");
 		$json = json_encode($result);
+		mysqli_close($con);
 		echo $json ;
 	 }
 	 else{
+
+		echo "Inside Else Block";
 		 $result =array("msg"=>"Someting wents wrong","status"=>"400");
 		 $json = json_encode($result);
 		 echo $json ;
+		 mysqli_close($con);
 	 }
-	mysqli_close($con);
-}else{
+
+	
+
+
+}
+
+
+else{
 	     $result =array("msg"=>"Parameter mismatched","status"=>"400");
 		 $json = json_encode($result);
 		 echo $json ;

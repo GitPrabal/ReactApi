@@ -5,12 +5,14 @@ header('Access-Control-Allow-Origin: *');
 include 'config.php';
 
 
+$email    = base64_decode($_GET['e']);
+$password = base64_decode($_GET['p']);
 
-$email    = $_GET['email'];
-$password = $_GET['password'];
+$salt_string  =  md5($email);
+$salt_string1 =  md5($password);
+$salt_string  = $salt_string."$".$salt_string1;
 
-
-$sql    = "SELECT *,count(*) as count FROM registration where email='$email' and password='$password' "; 
+$sql    = "SELECT *,count(*) as count FROM registration where email='$email' and password='$password' and salt_string='$salt_string' "; 
 $result = mysqli_query($con,$sql);
 
 $result = mysqli_fetch_assoc($result);
