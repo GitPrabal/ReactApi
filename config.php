@@ -1,5 +1,5 @@
 <?php
-/*
+
     $servername = "localhost";
 	$username = "root";
 	$password = "";
@@ -11,11 +11,11 @@
 	if ($con->connect_error) {
 		die("Connection failed: " . $con->connect_error);
     }
-*/
-	
+
+	/*
 	$servername = "localhost";
 	$username = "root";
 	$password = "";
 	$dbname = "Admin";
-
+*/
 ?>

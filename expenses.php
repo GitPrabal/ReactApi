@@ -2,16 +2,9 @@
 
 header('Access-Control-Allow-Origin: *'); 
 
-
 include 'config.php';
 
 $user_id    = base64_decode($_GET['user_id']); 
-
-
-
-
-
-
 
 $sql    = "SELECT count(*) as count ,date,sum(price) as price from expenses where user_id='$user_id' GROUP by date";
 

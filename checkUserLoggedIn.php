@@ -26,7 +26,14 @@ $reg_date  = $reg_date[0];
 $reg_date = date("M jS, Y", strtotime($reg_date));
 
 if($count > 0){
-	$result =array("user_id"=>$user_id,"email"=>$email, "msg"=>"Logged In Successfully","status"=>"200","flag"=>true,'fullname'=>$fullname,'reg_date'=>$reg_date);
+
+	$access_token = md5(time()); 
+
+	$sql = "INSERT INTO `user_token`(`user_id`,`access_token`) 
+	VALUES ('$user_id','$access_token')";
+	$result = mysqli_query($con,$sql);
+
+	$result =array("user_id"=>$user_id,"email"=>$em0ail, "msg"=>"Logged In Successfully","status"=>"200","flag"=>true,'fullname'=>$fullname,'reg_date'=>$reg_date,'access_token'=>$access_token);
 	$json = json_encode($result);
 	echo $json ;
 }else{
